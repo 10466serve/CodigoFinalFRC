@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.None;
+import java.util.Timer;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -20,7 +20,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-
+  
+  private Timer timer = new Timer();
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
@@ -94,8 +95,18 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     if(m_autoSelected == kCustomAuto){
+      Double setPoint = 2.0;
+      double variavelProcesso = 0.0;
+      if(variavelProcesso <= setPoint){
+        RobotContainer.sistemaTracao.tankmode(0.5, 0.5);
+        variavelProcesso = variavelProcesso + 1;
+      }else{
+        RobotContainer.sistemaTracao.tankmode(0, 0);
+        RobotContainer.sistemaTracao.stop();
+      }
       SmartDashboard.putString("Custom auto", "Seta do 12");
       System.out.println("Custom auto");
+
     }else if (m_autoSelected == kDefaultAuto) {
       SmartDashboard.putString("Default Auto", "autonomo ativado");
       System.out.println("Default Auto");
