@@ -11,6 +11,7 @@ import frc.robot.Constants.EstadoTracao;
 import frc.robot.Constants.PuxarAlgaEstado;
 //import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.Manipulator.ClimberJoy;
 import frc.robot.commands.Manipulator.SetMechanismState;
 import frc.robot.subsystems.DriveTrainSystem;
 import frc.robot.subsystems.SistemaDescerAlga;
@@ -28,9 +29,10 @@ public class RobotContainer {
   public static final SistemaDescerAlga sistemaDescerAlga = new SistemaDescerAlga();
   public static final SistemaPuxarAlga sistemaPuxarAlga = new SistemaPuxarAlga();
   public static final ClimberSystem sistemaClimber = new ClimberSystem();
-
-  CommandXboxController joystick1 = new CommandXboxController(0);
-  CommandXboxController joystick2 = new CommandXboxController(1);
+  
+    CommandXboxController joystick1 = new CommandXboxController(0);
+    static CommandXboxController joystick2 = new CommandXboxController(1);
+    public static final ClimberJoy controleClimber = new ClimberJoy(sistemaClimber, joystick2);
   
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //private final CommandXboxController m_driverController =
@@ -65,6 +67,9 @@ public class RobotContainer {
   joystick2.button(3).whileTrue(new SetMechanismState(PuxarAlgaEstado.PUXA)).onFalse(new SetMechanismState(PuxarAlgaEstado.PARADO));
   joystick2.button(1).whileTrue(new SetMechanismState(PuxarAlgaEstado.SOLTA)).onFalse(new SetMechanismState(PuxarAlgaEstado.PARADO));
   //CABO
+
+  
+  
   }
   
   private void defaultcommands(){
